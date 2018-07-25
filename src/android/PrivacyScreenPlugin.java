@@ -33,7 +33,7 @@ import android.os.Bundle;
  */
 public class PrivacyScreenPlugin extends CordovaPlugin {
 	private static final String CHANGE_PRIVACY = "changePrivacy";
-	public static final String KEY_PRIVACY_SCREEN_ENABLED = true;
+	public static final boolean KEY_PRIVACY_SCREEN_ENABLED = true;
 	private SharedPreferences preferences;
 	public CallbackContext callbackContext;
 
@@ -167,7 +167,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 	  } else
 	  {
-	  WindowManager.LayoutParams params = this.cordova.getActivity().getWindow().flags();
+		WindowManager.LayoutParams params = this.cordova.getActivity().getWindow().flags();
 		params &= ~WindowManager.LayoutParams.FLAG_SECURE; 
 		activity.getWindow().updateViewLayout(view, params);
 	  }
