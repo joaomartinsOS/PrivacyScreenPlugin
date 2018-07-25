@@ -33,7 +33,7 @@ import android.os.Bundle;
  */
 public class PrivacyScreenPlugin extends CordovaPlugin {
 	private static final String CHANGE_PRIVACY = "changePrivacy";
-	public static final boolean KEY_PRIVACY_SCREEN_ENABLED = true;
+	public static final String KEY_PRIVACY_SCREEN_ENABLED = "org.devgeeks.privacyscreen/PrivacyScreenEnabled";
 	private SharedPreferences preferences;
 	public CallbackContext callbackContext;
 
