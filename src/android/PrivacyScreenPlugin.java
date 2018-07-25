@@ -10,6 +10,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.PluginResult;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +32,11 @@ import android.os.Bundle;
  * private when shown in the task switcher
  */
 public class PrivacyScreenPlugin extends CordovaPlugin {
-  public static final String KEY_PRIVACY_SCREEN_ENABLED = "org.devgeeks.privacyscreen/PrivacyScreenEnabled";
-  private SharedPreferences preferences;
+	private static final String CHANGE_PRIVACY = "changePrivacy";
+	public static final String KEY_PRIVACY_SCREEN_ENABLED = true;
+	private SharedPreferences preferences;
+	boolean Arg_definedByUser = false;
+	public CallbackContext callbackContext;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -44,6 +49,43 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
       activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
   }
+  
+
+    /**
+     * Executes the request and returns PluginResult.
+     *
+     * @param args              JSONArry of arguments for the plugin.
+     * @param callbackContext   The callback id used when calling back into JavaScript.
+     * @return                  A PluginResult object with a status and message.
+     */
+  public boolean execute(boolean args, CallbackContext callbackContext) throws JSONException {
+        this.callbackContext = callbackContext;
+        this.definedByUser = args;
+		
+		if (action.equals(CHANGE_PRIVACY)) {
+            try {
+                setPrivacyScreenEnabled(definedByUser)
+            }
+            catch (Exception e)
+            {
+                callbackContext.error("Error");
+                PluginResult r = new PluginResult(PluginResult.Status.ERROR);
+                callbackContext.sendPluginResult(r);
+                return true;
+            }
+        } else {
+            return false;
+        }
+		
+		
+		
+
+            PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
+            r.setKeepCallback(true);
+            callbackContext.sendPluginResult(r);
+
+            return true;
+    }
 
   /**
    * Gets the value of the Privacy Screen Enabled entry stored in {@link SharedPreferences}.
