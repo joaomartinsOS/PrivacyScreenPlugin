@@ -58,7 +58,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
      * @param callbackContext   The callback id used when calling back into JavaScript.
      * @return                  A PluginResult object with a status and message.
      */
-  public boolean execute(String action, boolean arg, CallbackContext callbackContext, ) throws JSONException {
+  public boolean execute(String action, boolean arg, CallbackContext callbackContext ) throws JSONException {
         this.callbackContext = callbackContext;
 		
 		if (action.equals(CHANGE_PRIVACY)) {
