@@ -41,6 +41,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
     Activity activity = this.cordova.getActivity();
+	View view = this.android.View();
     preferences = PreferenceManager.getDefaultSharedPreferences(activity);
     boolean privacyScreenEnabled = isPrivacyScreenEnabled(true);
 
