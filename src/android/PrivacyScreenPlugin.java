@@ -35,7 +35,6 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 	private static final String CHANGE_PRIVACY = "changePrivacy";
 	public static final String KEY_PRIVACY_SCREEN_ENABLED = true;
 	private SharedPreferences preferences;
-	boolean Arg_definedByUser = false;
 	public CallbackContext callbackContext;
 
   @Override
@@ -47,6 +46,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 
     if (privacyScreenEnabled) {
       activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+	  
     }
   }
   
@@ -58,13 +58,13 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
      * @param callbackContext   The callback id used when calling back into JavaScript.
      * @return                  A PluginResult object with a status and message.
      */
-  public boolean execute(boolean args, CallbackContext callbackContext) throws JSONException {
+  public boolean execute(boolean arg, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
-        this.definedByUser = args;
 		
 		if (action.equals(CHANGE_PRIVACY)) {
             try {
-                setPrivacyScreenEnabled(definedByUser)
+                setPrivacyScreenEnabled(arg);
+				actualyChangeFlag();
             }
             catch (Exception e)
             {
@@ -76,15 +76,10 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
         } else {
             return false;
         }
-		
-		
-		
-
-            PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
-
-            return true;
+		PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
+        r.setKeepCallback(true);
+        callbackContext.sendPluginResult(r);
+		return true;
     }
 
   /**
@@ -164,6 +159,19 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   private boolean setPrivacyScreenEnabled(boolean value) {
     preferences.edit().putBoolean(KEY_PRIVACY_SCREEN_ENABLED, value).apply();
     return true;
+  }
+
+  private boolean actualyChangeFlag(){
+	  if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED)) 
+	  {
+		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+	  } else
+	  {
+	  WindowManager.LayoutParams params = this.cordova.getActivity().getWindow().flags();
+		params &= ~WindowManager.LayoutParams.FLAG_SECURE; 
+		activity.getWindow().updateViewLayout(view, params);
+	  }
+	
   }
 
   @Override
