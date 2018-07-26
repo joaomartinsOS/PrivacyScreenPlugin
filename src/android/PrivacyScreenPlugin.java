@@ -162,7 +162,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   }
 
   private boolean actualyChangeFlag(){
-	  if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED)) 
+	  if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED, true)) 
 	  {
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 	  } else
