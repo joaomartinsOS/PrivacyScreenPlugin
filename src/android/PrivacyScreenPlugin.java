@@ -36,11 +36,12 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 	public static final String KEY_PRIVACY_SCREEN_ENABLED = "org.devgeeks.privacyscreen/PrivacyScreenEnabled";
 	private SharedPreferences preferences;
 	public CallbackContext callbackContext;
+	Activity activity;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
-    Activity activity = this.cordova.getActivity();
+    activity = this.cordova.getActivity();
     preferences = PreferenceManager.getDefaultSharedPreferences(activity);
     boolean privacyScreenEnabled = isPrivacyScreenEnabled(true);
 
@@ -162,7 +163,6 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   }
 
   private boolean actualyChangeFlag(){
-
 	  if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED, true)) 
 	  {
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
