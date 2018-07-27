@@ -7,17 +7,17 @@
 package org.devgeeks.privacyscreen;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.WindowManager;
 
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.api.CallbackContext ;
+import org.apache.cordova.api.CordovaInterface;
+import org.apache.cordova.api.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.PluginResult;
+import org.apache.cordova.api.PluginResult;
 import org.json.JSONException;
 
 /**
@@ -41,9 +41,10 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
         params = activity.getWindow().getAttributes();
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean privacyScreenEnabled = isPrivacyScreenEnabled(true);
-        /*wm = this.cordova.Context.getSystemService(Context.WINDOW_SERVICE);*/
 
-       /* currView = webView;*/
+        wm = (WindowManager)activity.getSystemService(Context.WINDOW_SERVICE);
+
+        currView = webView;
 
         if (privacyScreenEnabled) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
@@ -164,12 +165,12 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 
         if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED, true)) {
             setPrivacyScreenEnabled(true);
-            /*this.activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);*/
+            this.activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
             return true;
         } else {
             setPrivacyScreenEnabled(false);
-           /* this.params.flags &= ~WindowManager.LayoutParams.FLAG_SECURE;
-            this.wm.updateViewLayout(currView, this.params);*/
+            this.params.flags &= ~WindowManager.LayoutParams.FLAG_SECURE;
+            this.wm.updateViewLayout(currView, this.params);
             return true;
         }
 
