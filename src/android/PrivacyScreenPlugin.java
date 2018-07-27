@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view;
 import android.view.Window;
 import android.view.WindowManager;
 
