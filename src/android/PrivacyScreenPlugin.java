@@ -37,7 +37,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 	private SharedPreferences preferences;
 	public CallbackContext callbackContext;
 	Activity activity;
-	WindowManager.LayoutParams params = activity.getWindow().LayoutParams();
+	WindowManager.LayoutParams params = activity.getWindow().LayoutParams;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
