@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -39,7 +40,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 	Activity activity;
 	WindowManager.LayoutParams params;
 	WindowManager wm;
-	View currView;
+	CordovaWebView currView;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
