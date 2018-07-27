@@ -165,19 +165,19 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   }
 
   private boolean actualyChangeFlag(){
+	  
 	  if (preferences.getBoolean(KEY_PRIVACY_SCREEN_ENABLED, true)) 
 	  {
 	  setPrivacyScreenEnabled(true);
-		/*this.activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);*/
+		this.activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 		return true;
 	  } else
 	  {
 		setPrivacyScreenEnabled(false);
-		/*this.params.flag() &= ~WindowManager.LayoutParams.FLAG_SECURE; 
-		this.activity.getWindow().updateViewLayout(this, this.params);*/
+		this.params.flag() &= ~WindowManager.LayoutParams.FLAG_SECURE; 
+		this.activity.getWindow().updateViewLayout(this, this.params);
 		return true;
 	  }
-	  return false;
 	
   }
 
