@@ -38,7 +38,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 	public CallbackContext callbackContext;
 	Activity activity;
 	WindowManager.LayoutParams params;
-	WindowManager wm 
+	WindowManager wm;
 	View currView;
 
   @Override
