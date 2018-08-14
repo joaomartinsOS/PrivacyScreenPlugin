@@ -73,7 +73,7 @@ PrivacyScreenPlugin.install = function() {
   if (!window.plugins) {
     window.plugins = {};
   }
-  window.plugins.RemoveSecureFlag = new PrivacyScreenPlugin();
-  return window.plugins.RemoveSecureFlag;
+  window.plugins.PrivacyScreenPlugin = new PrivacyScreenPlugin();
+  return window.plugins.PrivacyScreenPlugin;
 };
 cordova.addConstructor(PrivacyScreenPlugin.install);
