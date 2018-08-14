@@ -65,7 +65,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
     public boolean execute(String action, boolean arg, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
         JSONObject obj = new JSONObject();
-        obj.put("InitialValue", getPreferencesValue());
+        obj.put(INITIALVALUE, getPreferencesValue());
         if (action.equals(CHANGE_PRIVACY)) {
             try {
                 setPrivacyScreenEnabled(arg);
@@ -83,7 +83,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 
         r.setKeepCallback(true);
         callbackContext.sendPluginResult(r);
-        obj.put("TEXT", getPreferencesValue());
+        obj.put(TEXT, getPreferencesValue());
 
         callbackContext.success();
         return true;
