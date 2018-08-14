@@ -68,8 +68,11 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 
         if (action.equals(CHANGE_PRIVACY)) {
             try {
-                setPrivacyScreenEnabled(arg);
-                actualyChangeFlag();
+                if(arg== true)
+                {
+                    thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                    thisActivity.recreate();
+                }
             } catch (Exception e) {
                 callbackContext.error("Error");
                 PluginResult r = new PluginResult(PluginResult.Status.ERROR);
@@ -77,9 +80,17 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
                 return true;
             }
         } else if (action.equals(GET_VALUE)){
+            try {
             JSONObject prefs = new JSONObject();
             prefs.put("preferencevalue", getPreferencesValue());
             callbackContext.success(prefs);
+
+        } catch (Exception e) {
+            callbackContext.error("Error getting the value");
+            PluginResult r = new PluginResult(PluginResult.Status.ERROR);
+            callbackContext.sendPluginResult(r);
+            return true;
+        }
         } else {
             return false;
         }
