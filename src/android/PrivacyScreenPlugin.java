@@ -29,6 +29,7 @@ import org.json.JSONObject;
  */
 public class PrivacyScreenPlugin extends CordovaPlugin {
     private static final String CHANGE_PRIVACY = "changePrivacy";
+    private static final String GET_VALUE = "getPreferencesValue";
     public static final String KEY_PRIVACY_SCREEN_ENABLED = "org.devgeeks.privacyscreen/PrivacyScreenEnabled";
     private SharedPreferences preferences;
     public CallbackContext callbackContext;
@@ -64,8 +65,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
      */
     public boolean execute(String action, boolean arg, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
-        JSONObject obj = new JSONObject();
-        obj.put("INITIALVALUE", getPreferencesValue());
+
         if (action.equals(CHANGE_PRIVACY)) {
             try {
                 setPrivacyScreenEnabled(arg);
@@ -76,15 +76,18 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
                 callbackContext.sendPluginResult(r);
                 return true;
             }
+        } else if (action.equals(GET_VALUE)){
+            JSONObject prefs = new JSONObject();
+            prefs.put("preferencevalue", getPreferencesValue());
+            callbackContext.success(prefs);
         } else {
             return false;
         }
-        /*PluginResult r = new PluginResult(PluginResult.Status.OK);
-        r.setKeepCallback(true);
-        callbackContext.sendPluginResult(r);*/
 
-        obj.put("TEXT", getPreferencesValue());
-        callbackContext.success(obj);
+        PluginResult r = new PluginResult(PluginResult.Status.OK);
+        r.setKeepCallback(true);
+        callbackContext.sendPluginResult(r);
+
         return true;
     }
 
