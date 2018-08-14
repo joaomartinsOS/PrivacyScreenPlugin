@@ -23,6 +23,7 @@ import org.json.JSONException;
 
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 /**
  * This class sets the FLAG_SECURE flag on the window to make the app
  * private when shown in the task switcher
@@ -63,15 +64,26 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
      * @param callbackContext The callback id used when calling back into JavaScript.
      * @return A PluginResult object with a status and message.
      */
-    public boolean execute(String action, boolean arg, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
+        JSONObject obj = args.optJSONObject(0);
+        boolean IsToShowFlag;
+        Activity thisActivity = cordova.getActivity();
+        if (obj != null) {
+            IsToShowFlag = obj.optBoolean("IsToShowFlag");
+        } else {
+            callbackContext.error("User did not specify IsToShowFlag");
+            return true;
+        }
 
         if (action.equals(CHANGE_PRIVACY)) {
             try {
-                if(!arg)
+                if(!IsToShowFlag)
                 {
-                    Activity thisActivity = cordova.getActivity();
                     thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                    thisActivity.recreate();
+                } else {
+                    thisActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
                     thisActivity.recreate();
                 }
             } catch (Exception e) {
@@ -85,13 +97,12 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
             JSONObject prefs = new JSONObject();
             prefs.put("preferencevalue", getPreferencesValue());
             callbackContext.success(prefs);
-
-        } catch (Exception e) {
-            callbackContext.error("Error getting the value");
-            PluginResult r = new PluginResult(PluginResult.Status.ERROR);
-            callbackContext.sendPluginResult(r);
-            return true;
-        }
+            } catch (Exception e) {
+                callbackContext.error("Error getting the value");
+                PluginResult r = new PluginResult(PluginResult.Status.ERROR);
+                callbackContext.sendPluginResult(r);
+                return true;
+            }
         } else {
             return false;
         }

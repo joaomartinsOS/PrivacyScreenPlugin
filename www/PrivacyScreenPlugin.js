@@ -9,8 +9,8 @@
         var exec = cordova.require("cordova/exec");
         function PrivacyScreenPlugin() {}
 
-PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCallback, config) {
-            console.log("PrivacyScreenPlugin: executing changePrivacy, trying to set flag as "+config);
+PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCallback, IsToShowFlag) {
+            console.log("PrivacyScreenPlugin: executing changePrivacy, trying to set flag as "+IsToShowFlag);
             if (errorCallback == null) {
                 errorCallback = function () {
                 };
@@ -26,6 +26,7 @@ PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCa
                 return;
             }
 
+
             exec(
                 function(result) {
                     successCallback(result);
@@ -35,7 +36,7 @@ PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCa
                 },
                 'PrivacyScreenPlugin',
                 'changePrivacy',
-                config
+                {"IsToShowFlag": IsToShowFlag}
             );
         };
 
