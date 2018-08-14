@@ -6,36 +6,11 @@
  * Copyright (c) 2011, IBM Corporation
  * Copyright (c) 2012-2017, Adobe Systems
  */
-
-
         var exec = cordova.require("cordova/exec");
+        function PrivacyScreenPlugin() {}
 
-
-        /**
-         * Constructor.
-         *
-         * @returns {PrivacyScreenPlugin}
-         */
-        function PrivacyScreenPlugin() {
-
-            
-  }
-
-/**
- * Read code from scanner.
- *
- * @param {Function} successCallback This function will recieve a result object: {
-         *        text : '12345-mock',    // The code that was scanned.
-         *        format : 'FORMAT_NAME', // Code format.
-         *        cancelled : true/false, // Was canceled.
-         *    }
- * @param {Function} errorCallback
- * @param config
- */
 PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCallback, config) {
-
-            
-
+            console.log("PrivacyScreenPlugin: executing changePrivacy, trying to set flag as "+config);
             if (errorCallback == null) {
                 errorCallback = function () {
                 };
@@ -50,7 +25,6 @@ PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCa
                 console.log("PrivacyScreenPlugin.changePrivacy failure: success callback parameter must be a function");
                 return;
             }
-
 
             exec(
                 function(result) {
@@ -66,25 +40,21 @@ PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCa
         };
 
 PrivacyScreenPlugin.prototype.getPreferencesValue = function (successCallback, errorCallback) {
-
-
-
+            console.log("PrivacyScreenPlugin: executing getPreferencesValue");
             if (errorCallback == null) {
                 errorCallback = function () {
                 };
             }
 
             if (typeof errorCallback != "function") {
-                console.log("PrivacyScreenPlugin.changePrivacy failure: failure parameter not a function");
+                console.log("PrivacyScreenPlugin.getPreferencesValue failure: failure parameter not a function");
                 return;
             }
 
             if (typeof successCallback != "function") {
-                console.log("PrivacyScreenPlugin.changePrivacy failure: success callback parameter must be a function");
+                console.log("PrivacyScreenPlugin.getPreferencesValue failure: success callback parameter must be a function");
                 return;
             }
-
-
             exec(
                 function(result) {
                     successCallback(result);
