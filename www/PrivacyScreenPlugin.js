@@ -65,6 +65,39 @@ PrivacyScreenPlugin.prototype.changePrivacy = function (successCallback, errorCa
             );
         };
 
+PrivacyScreenPlugin.prototype.getPreferencesValue = function (successCallback, errorCallback) {
+
+
+
+            if (errorCallback == null) {
+                errorCallback = function () {
+                };
+            }
+
+            if (typeof errorCallback != "function") {
+                console.log("PrivacyScreenPlugin.changePrivacy failure: failure parameter not a function");
+                return;
+            }
+
+            if (typeof successCallback != "function") {
+                console.log("PrivacyScreenPlugin.changePrivacy failure: success callback parameter must be a function");
+                return;
+            }
+
+
+            exec(
+                function(result) {
+                    successCallback(result);
+                },
+                function(error) {
+                    errorCallback(error);
+                },
+                'PrivacyScreenPlugin',
+                'getPreferencesValue',
+                false
+            );
+        };
+
         
 
         var privacyScreenPlugin = new PrivacyScreenPlugin();
