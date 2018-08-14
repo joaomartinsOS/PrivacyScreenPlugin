@@ -14,11 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-import org.apache.cordova.CallbackContext ;
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.api.CallbackContext ;
+import org.apache.cordova.api.CordovaInterface;
+import org.apache.cordova.api.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.PluginResult;
+import org.apache.cordova.api.PluginResult;
 import org.json.JSONException;
 
 
@@ -68,7 +68,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
 
         if (action.equals(CHANGE_PRIVACY)) {
             try {
-                if(arg== true)
+                if(!arg)
                 {
                     Activity thisActivity = cordova.getActivity();
                     thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
