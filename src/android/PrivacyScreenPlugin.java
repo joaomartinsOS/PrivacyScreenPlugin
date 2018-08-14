@@ -70,6 +70,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
             try {
                 if(arg== true)
                 {
+                    Activity thisActivity = cordova.getActivity();
                     thisActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
                     thisActivity.recreate();
                 }
