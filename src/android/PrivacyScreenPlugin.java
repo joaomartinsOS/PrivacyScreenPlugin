@@ -85,7 +85,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
         callbackContext.sendPluginResult(r);
         obj.put("TEXT", getPreferencesValue());
 
-        callbackContext.success();
+        callbackContext.success(obj);
         return true;
     }
 
