@@ -71,10 +71,10 @@ PrivacyScreenPlugin.prototype.getPreferencesValue = function (successCallback, e
 
 // Installation constructor that binds RemoveSecureFlag to window
 PrivacyScreenPlugin.install = function() {
-  if (!window.plugins) {
-    window.plugins = {};
+  if (!window.cordova.plugins) {
+    window.cordova.plugins = {};
   }
-  window.plugins.PrivacyScreenPlugin = new PrivacyScreenPlugin();
-  return window.plugins.PrivacyScreenPlugin;
+  window.cordova.plugins.PrivacyScreenPlugin = new PrivacyScreenPlugin();
+  return window.cordova.plugins.PrivacyScreenPlugin;
 };
 cordova.addConstructor(PrivacyScreenPlugin.install);
