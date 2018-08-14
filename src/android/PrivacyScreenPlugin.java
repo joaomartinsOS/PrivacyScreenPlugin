@@ -21,6 +21,8 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONException;
 
+
+import org.json.JSONObject;
 /**
  * This class sets the FLAG_SECURE flag on the window to make the app
  * private when shown in the task switcher
@@ -62,7 +64,8 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
      */
     public boolean execute(String action, boolean arg, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
-
+        JSONObject obj = new JSONObject();
+        obj.put("InitialValue", getPreferencesValue());
         if (action.equals(CHANGE_PRIVACY)) {
             try {
                 setPrivacyScreenEnabled(arg);
@@ -77,8 +80,12 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
             return false;
         }
         PluginResult r = new PluginResult(PluginResult.Status.OK);
+
         r.setKeepCallback(true);
         callbackContext.sendPluginResult(r);
+        obj.put("TEXT", getPreferencesValue());
+
+        callbackContext.success();
         return true;
     }
 
@@ -176,6 +183,12 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
             return true;
         }
 
+    }
+
+    private String getPreferencesValue(){
+        String outputText = "The preferences Value is: ";
+        outputText += isPrivacyScreenEnabled(true, true);
+        return outputText;
     }
 
     @Override
