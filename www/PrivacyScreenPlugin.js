@@ -68,7 +68,12 @@ PrivacyScreenPlugin.prototype.getPreferencesValue = function (successCallback, e
             );
         };
 
-        
-
-        var privacyScreenPlugin = new PrivacyScreenPlugin();
-        module.exports = privacyScreenPlugin;
+// Installation constructor that binds RemoveSecureFlag to window
+PrivacyScreenPlugin.install = function() {
+  if (!window.plugins) {
+    window.plugins = {};
+  }
+  window.plugins.RemoveSecureFlag = new PrivacyScreenPlugin();
+  return window.plugins.RemoveSecureFlag;
+};
+cordova.addConstructor(PrivacyScreenPlugin.install);
